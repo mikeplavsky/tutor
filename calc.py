@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
-import sys
+from optparse import OptionParser
+parser = OptionParser()
 
-if sys.argv.count == 1: 
-  name = raw_input("Как тебя зовут?\n")
-else:
-  name = sys.argv[1]
+parser.add_option("-n", "--name", dest="name", help="player's name")
+parser.add_option("-m", "--max", dest="max", type="int", help="upper bound")
+
+(options,args) = parser.parse_args()
+
+if not options.name or not options.max:
+  parser.print_help()
+  exit(-1)
+
+name = options.name
 
 print("\nПривет, %s!" % name)
 print("Давай поиграем!\n")
@@ -16,12 +23,16 @@ while (True):
   from random import random, choice
   import math
 
-  digit = lambda: math.floor(random() * 20)
+  op = choice(['+', '-'])
+  max = options.max
+
+  if op == '+':
+    max = max / 2
+
+  digit = lambda: math.floor(random() * max)
 
   x = digit()
   y = digit()
-
-  op = choice(['+', '-'])
 
   if op == '-' and y > x:
 
@@ -34,6 +45,15 @@ while (True):
   while (True):
 
     res = raw_input("Сколько будет %s = ?\n" % q)
+
+    try:
+
+      res = int(res)
+
+    except ValueError:
+
+      print("%s, надо ввести цифру!\n") % name
+      continue
 
     import os
     os.system('clear')
