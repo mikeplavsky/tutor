@@ -13,22 +13,32 @@ points = 0
 
 while (True):
   
-  import random
+  from random import random, choice
   import math
 
-  digit = lambda: math.floor(random.random() * 10)
+  digit = lambda: math.floor(random() * 20)
 
   x = digit()
   y = digit()
 
+  op = choice(['+', '-'])
+
+  if op == '-' and y > x:
+
+    t = x
+    x = y
+    y = t
+
+  q = "%i %s %i" % (x,op,y)
+
   while (True):
 
-    res = raw_input("Сколько будет %i + %i = ?\n" % (x, y))
+    res = raw_input("Сколько будет %s = ?\n" % q)
 
     import os
     os.system('clear')
 
-    if (int(res) == (x + y)):
+    if (int(res) == eval(q)):
 
       points += 1
 
