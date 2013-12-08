@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
+import sys
 
-print "Привет, Матвей!"
-print "Давай поиграем!"
+if sys.argv.count == 1: 
+  name = raw_input("Как тебя зовут?\n")
+else:
+  name = sys.argv[1]
+
+print("\nПривет, %s!" % name)
+print("Давай поиграем!\n")
 
 points = 0
 
@@ -10,26 +16,32 @@ while (True):
   import random
   import math
 
-  x = math.floor(random.random() * 10)
-  y = math.floor(random.random() * 10)
+  digit = lambda: math.floor(random.random() * 10)
+
+  x = digit()
+  y = digit()
 
   while (True):
 
     res = raw_input("Сколько будет %i + %i = ?\n" % (x, y))
 
+    import os
+    os.system('clear')
+
     if (int(res) == (x + y)):
 
       points += 1
 
-      print( "Молодец, Матвей! Правильно!" )
-      print( "Ты заработал %i! \n" % points )
+      print( "\nМолодец, %s! Правильно!" % name )
+      print( "Ты заработал %i" % points )
+      print( "\n%s, давай ещё поиграем!\n" % name )
 
       break
 
     else:
 
       print( "\nНеправильно!" )
-      print( "Матвеюшка! Попробуй ещё раз! \n" )
+      print( "%s, попробуй ещё раз! \n" % name )
       continue
 
 
